@@ -1,6 +1,8 @@
 # noox
 The best template engine for JavaScript, base on React Jsx. It can be used instead of ejs, swig, jade, art-template template engine.
 
+一个基于 react jsx 的模板引擎，她可以用来替代传统的 ejs, swig, jade, art 等模板引擎。
+
 ## Installation
 ```
 npm install noox
