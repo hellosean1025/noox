@@ -74,7 +74,7 @@ Get a component by name
 
 ### load(dir)
 
-Get a component by name
+load some components in the dir path
 
 | args | Description |
 | ---- | ----------- |
