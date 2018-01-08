@@ -7,6 +7,7 @@ const ComponentNameRegexp = /<([A-Z][\w]*)/;
 const clearCommentRegexp = /\/\*[\s\S]*?\*\//;
 const tplExt = '.jsx';
 let Components;
+let context;
 
 function initJsx(componentName, content){
   Components[componentName] = {
@@ -39,9 +40,9 @@ function parseJsx(name){
   let component = Components[name];
   if(component.depends.length === 0){
     component.status = 1;
-    component.fn = toComponent(component.content, {});
+    component.fn = toComponent(component.content, context);
   }else{
-    let sign = true, scope = {};
+    let sign = true, scope = Object.assign({}, context);
     component.depends.forEach(d=>{
       if(!Components[d])throw new Error(`Do not exist the component "${d}"`);
       if(Components[d].status === 0){
@@ -54,19 +55,6 @@ function parseJsx(name){
       component.fn = toComponent(component.content, scope)
     }
   }
-}
-
-function checkDepends(){
-  Object.keys(Components).forEach(componentName=>{
-    if(Components[componentName].depends.length > 0){
-      Components[componentName].depends.map(d=>{
-        if(!Components[d]){
-          let componentPath = path.resolve(filepath, d)
-          throw new Error(`Cannot find the Component "${d}" in the "${componentPath}"`)
-        }
-      })
-    }
-  })
 }
 
 function checkCompents(){
@@ -88,15 +76,17 @@ function loadComponents(level){
   if(checkCompents() === false) loadComponents(level+1);
 }
 
-exports.toComponents = function(dir, context){
-  Components = context;
+exports.toComponents = function(dir, _components, _context = {}){
+  Components = _components;
+  context = _context;
   filepath = dir;
   initComponents();
   loadComponents();
 }
 
-exports.addComponent = function(name, content, context){
-  Components = context;
+exports.addComponent = function(name, content, _components, _context = {}){
+  Components = _components;
+  context = _context;
   initJsx(name, content);
   parseJsx(name)
   return Components[name];

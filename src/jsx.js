@@ -15,7 +15,7 @@ const toComponent = (jsx, scope = {}) => {
   const el = parse(wrap(jsx))
   const scopeKeys = Object.keys(scope)
   const scopeValues = scopeKeys.map(key => scope[key])
-  const create = new Function('React', ...scopeKeys, `return props => ${el}`)
+  const create = new Function('React', ...scopeKeys, `return (props) =>  ${el} `)
   const Comp = create(React, ...scopeValues)
   return Comp
 }

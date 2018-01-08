@@ -22,22 +22,25 @@ Head.jsx:
 
 ```
 <head>
-	<title>{props.title}</title>
+	<title>{title}</title>
+	<meta name="description" content={props.description} />
 	<link rel="stylesheet" href="./css/style.css" />
 </head>
+
 
 ```
 
 ### Node.js Code
 ```
 const noox = require('noox');
-const nx = new noox(path.resolve(__dirname, './components'));
-let output = nx.render('Head', {title: 'hello, noox.'})
+const nx = new noox(path.resolve(__dirname, './components'), {title: 'noox'});
+let output = nx.render('Head', {description: 'hello, noox.'})
 ```
 ### Output
 ```
 <head>
-	<title>hello, noox.</title>
+	<title>noox</title>
+	<meta name="description" content="hello, noox." />
 	<link rel="stylesheet" href="./css/style.css" />
 </head>
 ```
@@ -62,7 +65,13 @@ It will create three component:
 * Body
 * Layout
 
+Then to render component by  use render function :
+nx.render('Body', props)
+
 ## noox api 
+
+### noox construct(dir, context = {})
+Instantiation noox and load some components in the dir path, use context object as global varible.
 
 ### get(name)
 
