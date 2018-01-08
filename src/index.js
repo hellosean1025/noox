@@ -26,7 +26,7 @@ noox.prototype.load = function(dir){
 noox.prototype.add = function(name, jsx){
   const Components = this.Components;
   if(Components[name]) throw new Error(`The component "${name}" already exists.`);
-  Components[name] = addComponent(name, jsx, Components, this.context);
+  Components[name] = addComponent(name, jsx, Components);
   return Components[name].fn;
 }
 

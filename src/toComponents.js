@@ -84,9 +84,8 @@ exports.toComponents = function(dir, _components, _context = {}){
   loadComponents();
 }
 
-exports.addComponent = function(name, content, _components, _context = {}){
+exports.addComponent = function(name, content, _components){
   Components = _components;
-  context = _context;
   initJsx(name, content);
   parseJsx(name)
   return Components[name];
