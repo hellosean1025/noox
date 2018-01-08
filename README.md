@@ -66,7 +66,10 @@ It will create three component:
 * Layout
 
 Then to render component by  use render function :
+
+```
 nx.render('Body', props)
+```
 
 ## noox api 
 
