@@ -16,6 +16,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-register": "^6.26.0",
     "babel-standalone": "^6.26.0",
+    "gray-matter": "^3.1.1",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0"

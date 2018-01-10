@@ -1,3 +1,8 @@
+---
+title: Hello
+slug: home
+---
+
 <html>
   <Head data={props} />
   <body>

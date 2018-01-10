@@ -16,7 +16,10 @@ function noox(dir, context = {}){
 noox.prototype.get = function(name){
   const Components = this.Components;
   if(!Components[name]) throw new Error(`Can not find the component "${name}"`);
-  return Components[name].fn;
+  return {
+    component: Components[name].fn,
+    data:      Components[name].data
+  }
 }
 
 noox.prototype.load = function(dir){
@@ -27,11 +30,11 @@ noox.prototype.add = function(name, jsx){
   const Components = this.Components;
   if(Components[name]) throw new Error(`The component "${name}" already exists.`);
   Components[name] = addComponent(name, jsx, Components);
-  return Components[name].fn;
+  return this.get(name);
 }
 
 noox.prototype.render = function(name, props){  
-  const component = this.get(name);
+  const component = this.get(name).component;
   return ReactDOMServer.renderToStaticMarkup(component(props));
 }
 

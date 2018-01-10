@@ -1,9 +1,12 @@
 const noox = require('../src');
 const path = require('path');
 
-let nx = new noox(path.resolve(__dirname, 'components'), {
+let context = {
   title: '--noox--'
-});
+}
+let nx = new noox(path.resolve(__dirname, 'components'), context);
+
+context.title = '---new title---'
 
 let layout = nx.render('Layout', {
   title: 'layout',

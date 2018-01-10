@@ -22,3 +22,4 @@ const toComponent = (jsx, scope = {}) => {
 
 exports.parse = parse;
 exports.toComponent = toComponent;
+exports.wrap = wrap;

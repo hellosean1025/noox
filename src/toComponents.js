@@ -1,28 +1,25 @@
 let filepath;
 const path = require('path');
 const fs = require('fs');
-const toComponent= require('./jsx').toComponent;
-const ComponentRegexp = /<([A-Z][\w]*)\s+[^>]*>/g;
-const ComponentNameRegexp = /<([A-Z][\w]*)/;
-const clearCommentRegexp = /\/\*[\s\S]*?\*\//;
+const matter = require('gray-matter');
+const jsx = require('./jsx');
+const toComponent= jsx.toComponent;
+const ComponentRegexp = /React\.createElement\(\s*([A-Z]\w*)\s*,/g;
+
 const tplExt = '.jsx';
 let Components;
 let context;
 
-function initJsx(componentName, content){
+function initJsx(componentName, matter){
   Components[componentName] = {
     status: 0,
     depends: [],
-    content: content
+    content: matter.content,
+    data: matter.data
   };
-  let replaceContent = content.replace(clearCommentRegexp, '')
-  let dependComponents = replaceContent.match(ComponentRegexp);
-  if(dependComponents){
-    dependComponents.forEach(c=>{
-      let name = c.match(ComponentNameRegexp)[1];
-      Components[componentName].depends.push(name);
-    })
-  }
+  
+  let jsCode = jsx.parse(jsx.wrap(matter.content));
+  jsCode.replace(ComponentRegexp, (str, match)=>Components[componentName].depends.push(match))
 }
 
 function initComponents(){
@@ -32,7 +29,7 @@ function initComponents(){
     let componentName = path.basename(item, tplExt);
     
     let content = fs.readFileSync(path.resolve(filepath, item), 'utf8');
-    initJsx(componentName, content);
+    initJsx(componentName, matter(content));
   })
 }
 
@@ -86,7 +83,7 @@ exports.toComponents = function(dir, _components, _context = {}){
 
 exports.addComponent = function(name, content, _components){
   Components = _components;
-  initJsx(name, content);
+  initJsx(name, matter(content));
   parseJsx(name)
   return Components[name];
 }
