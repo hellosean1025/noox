@@ -4,6 +4,7 @@ const fs = require('fs');
 const matter = require('gray-matter');
 const jsx = require('./jsx');
 const toComponent= jsx.toComponent;
+const componentNameRegexp = /^[A-Z]\w*$/
 const ComponentRegexp = /React\.createElement\(\s*([A-Z]\w*)\s*,/g;
 
 const tplExt = '.jsx';
@@ -27,7 +28,9 @@ function initComponents(){
   rootFiles.forEach(item=>{
     if(path.extname(item) !== tplExt) return;
     let componentName = path.basename(item, tplExt);
-    
+    if(!componentNameRegexp.test(componentName)){
+      return;
+    }
     let content = fs.readFileSync(path.resolve(filepath, item), 'utf8');
     initJsx(componentName, matter(content));
   })
