@@ -16,7 +16,7 @@ test('render', t=>{
       content: 'hello layout....'
     }
   })
-  t.is(r, '<html><head><title>--noox--</title><link rel="stylesheet" href="./css/style.css"/></head><body><div><header><div>header</div></header><div>hello layout....</div></div></body></html>')
+  t.is(r, '<html><head><title>--noox--</title><link rel="stylesheet" href="./css/style.css"/></head><body><div><header><div>header</div></header><h1>Customer_Private_Variable</h1><div>hello layout....</div></div></body></html>')
 })
 
 test('addComponent', t=>{

@@ -13,6 +13,7 @@ let context;
 
 function initJsx(componentName, matter){
   Components[componentName] = {
+    name: componentName,
     status: 0,
     depends: [],
     content: matter.content,
@@ -36,10 +37,24 @@ function initComponents(){
   })
 }
 
+function injectPrivateData(component, scope){
+
+  if(component.data && typeof component.data === 'object'){
+    for(let key in component.data){
+      if(scope[key]){
+        throw new Error(`The component "${component.name}" can not define variable "${key}", please rename "${key}" to other`)
+      }
+    }
+    Object.assign(scope, component.data);
+  }
+
+}
+
 function parseJsx(name){
   let component = Components[name];
   if(component.depends.length === 0){
     component.status = 1;
+    injectPrivateData(component, context);
     component.fn = toComponent(component.content, context);
   }else{
     let sign = true, scope = Object.assign({}, context);
@@ -52,6 +67,7 @@ function parseJsx(name){
     })
     if(sign) {
       component.status = 1;
+      injectPrivateData(component, scope);
       component.fn = toComponent(component.content, scope)
     }
   }

@@ -1,6 +1,5 @@
 ---
-title: Hello
-slug: home
+welcome: Customer_Private_Variable
 ---
 
 <html>
@@ -8,6 +7,7 @@ slug: home
   <body>
     <div>
       <Header />
+      <h1>{welcome}</h1>
       <Body content={props.page.content} />
       
     </div>
