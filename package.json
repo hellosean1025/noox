@@ -1,6 +1,6 @@
 {
   "name": "noox",
-  "version": "0.1.0beta",
+  "version": "0.1.1beta",
   "description": "",
   "main": "src/index.js",
   "scripts": {

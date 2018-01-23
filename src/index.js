@@ -10,7 +10,7 @@ function noox(dir, context = {}){
   this.Components = {};
   this.context = context;
   this.Layout = {};
-  if(dir) toComponents(dir, this.Components, this.context);
+  toComponents(dir, this.Components, this.context);
 }
 
 noox.prototype.get = function(name){
@@ -34,8 +34,13 @@ noox.prototype.add = function(name, jsx){
 }
 
 noox.prototype.render = function(name, props){  
-  const component = this.get(name).component;
-  return ReactDOMServer.renderToStaticMarkup(component(props));
+  try{
+    const component = this.get(name).component;
+    return ReactDOMServer.renderToStaticMarkup(component(props));
+  }  catch(err){
+    err.message = `In the Component "${name}", ${err.message}`
+    throw err;
+  }
 }
 
 module.exports = noox;

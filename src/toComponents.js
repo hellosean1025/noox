@@ -95,6 +95,7 @@ function loadComponents(level){
 exports.toComponents = function(dir, _components, _context = {}){
   Components = _components;
   context = _context;
+  if(!dir) return;
   filepath = dir;
   initComponents();
   loadComponents();
