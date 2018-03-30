@@ -15,7 +15,7 @@ let layout = nx.render('Layout', {
   }
 })
 
-console.log(layout)
+console.log(layout, null,2)
 
 console.log('--------------')
 

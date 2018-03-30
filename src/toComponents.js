@@ -55,7 +55,7 @@ function parseJsx(name){
   if(component.depends.length === 0){
     component.status = 1;
     injectPrivateData(component, context);
-    component.fn = toComponent(component.content, context);
+    component.fn = toComponent(component.name, component.content, context);
   }else{
     let sign = true, scope = Object.assign({}, context);
     component.depends.forEach(d=>{
@@ -68,7 +68,7 @@ function parseJsx(name){
     if(sign) {
       component.status = 1;
       injectPrivateData(component, scope);
-      component.fn = toComponent(component.content, scope)
+      component.fn = toComponent(component.name, component.content, scope)
     }
   }
 }
