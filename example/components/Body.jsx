@@ -1,1 +1,1 @@
-<div dangerouslySetInnerHTML={{__html: props2.content}}></div>
+<div dangerouslySetInnerHTML={{__html: props.content}}></div>

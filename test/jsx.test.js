@@ -32,7 +32,7 @@ test('toComponent', t=>{
     <link rel="stylesheet" href="./css/style.css" />
   </head>`;
 
-  let Component = jsx.toComponent(code, {title: 'noox'});
+  let Component = jsx.toComponent('head', code, {title: 'noox'});
   let result = ReactDOMServer.renderToStaticMarkup(React.createElement(Component, {id: 'title'}))
   t.is(result, '<head><title id="title">noox</title><link rel="stylesheet" href="./css/style.css"/></head>');
 
